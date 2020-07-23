@@ -5,9 +5,13 @@
 **********************************/
 #include "phonebook_menu_logic.h"
 
-abonent_record phonebook[PHONEBOOK_MAX_REC];
+abonent_record array[PHONEBOOK_MAX_REC];
+
+phonebook phone_book;
 
 int main() {
-    main_menu(phonebook);
+    phone_book.size = PHONEBOOK_MAX_REC;
+    phone_book.abonents = array;
+    main_menu(&phone_book);
     return 0;
 }
