@@ -1,7 +1,8 @@
 # Make C-Array-phonebook
 
-.PHONY = clean
-CC := gcc
+.PHONY = clean debug
+KEYS :=
+CC := gcc $(KEYS)
 
 phonebook : phonebook.o \
             phonebook_data.o \
