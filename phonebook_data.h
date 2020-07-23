@@ -14,7 +14,7 @@
 
 /* Limits */
 #define MAX_STR_LEN 32
-#define PHONEBOOK_MAX_REC 10
+#define PHONEBOOK_MAX_REC 2
 
 /* Type for abonent records */
 typedef struct abonent_record {
