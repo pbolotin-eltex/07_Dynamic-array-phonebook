@@ -1,0 +1,25 @@
+Description of the dynamic-array-phonebook project
+
+ * You can have from 1 records in C-array-phonebook
+ * You have no limit for the records (but memory has it).
+ * You can add records
+ * You can view your records
+ * You can delete your records
+ * You can search for... (it's advaced! [And] and [or] modes!)
+ * Even you can quit from this program!
+
+STRUCT OF PROJECT
+
+1.  phonebook.c                 - main()
+
+2.  phonebook_data.c            - base data structure for phonebook here
+    phonebook_data.h              
+
+3.  phonebook_menu_logic.c      - just logic of behavior between user and program
+    phonebook_menu_logic.h        it not so simple, there are many ways it need to care about.
+
+3.  phonebook_interactions.c    - ways of user input here
+    phonebook_interactions.h
+
+5.  phonebook_show.c            - interface part, just texts because it's console program
+    phonebook_show.h
