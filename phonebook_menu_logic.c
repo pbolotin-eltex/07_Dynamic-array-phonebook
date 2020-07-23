@@ -2,6 +2,9 @@
 * THIS PART for BEHAVIOR LOGIC of
 * this program.
 **********************************/
+#include <malloc.h>
+#include <stdlib.h>
+
 #include "phonebook_menu_logic.h"
 #include "phonebook_show.h"
 #include "phonebook_interactions.h"
@@ -18,8 +21,14 @@ int main_menu(phonebook* phone_book) {
             if(is_place_for_new_record(phone_book)) {
                 add_menu(phone_book);
             } else {
-                show_no_place_message();
-                get_user_reaction();
+                if(-1 == try_to_take_more_memory(phone_book)) {
+                    perror("Out of memory!\n");
+                    free(phone_book->abonents);
+                    exit(EXIT_FAILURE);
+                    /*  because of exit() this 'return' will not be done */
+                    return -1;
+                }
+                add_menu(phone_book);
             }
             break;
         /**** View case ****/            

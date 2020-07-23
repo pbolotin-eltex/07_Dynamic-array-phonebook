@@ -14,7 +14,7 @@
 
 /* Limits */
 #define MAX_STR_LEN 32
-#define PHONEBOOK_MAX_REC 2
+/*#define PHONEBOOK_MAX_REC 2*/
 
 /* Type for abonent records */
 typedef struct abonent_record {
@@ -37,6 +37,9 @@ int how_many_records(phonebook* phone_book);
 
 /* Maybe our phonebook doesn't have enough place for new records?  */
 int is_place_for_new_record(phonebook* phone_book);
+
+/* If it's needed another piece of memory for new records */
+int try_to_take_more_memory(phonebook* phone_book);
 
 /* Maybe our phonebook doesn't have any records at all?  */
 int are_records_in_phonebook(phonebook* phone_book);
