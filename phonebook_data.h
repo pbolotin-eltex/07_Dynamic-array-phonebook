@@ -53,9 +53,17 @@ int index_of_first_empty_place_in_phonebook(phonebook* phone_book);
 int get_index_of_next_existing_record(phonebook* phone_book, \
                                       int current_index);
 
-/* This function do as its name says about */
+/* It only set zeroes on the place of "deleted" record
+   It don't move other records */
 int delete_record_from_phonebook_by_index(phonebook* phone_book, \
                                           int delete_index);
+
+/* It really will move other records (if any are)
+to fill the place of "deleted" record. It will resize 
+allocated memory to actual count of the records. */
+int move_other_records_and_change_memory_size(phonebook* phone_book, \
+                                              int to_where_move_index);
+
 
 /* Search for abonent in phonebook.
    [And], [or] modes of search... 

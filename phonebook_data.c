@@ -49,6 +49,8 @@ int try_to_take_more_memory(phonebook* phone_book) {
 
 /* Maybe our phonebook don't have any records at all?  */
 int are_records_in_phonebook(phonebook* phone_book) {
+    if(NULL == phone_book->abonents) return 0;
+    if(phone_book->size == 0) return 0;
     return how_many_records(phone_book);
 }
 
@@ -81,13 +83,48 @@ int get_index_of_next_existing_record(phonebook* phone_book, \
     return -1;
 }
 
-/* This function do as its name says about */
+/* It only set zeroes on the place of "deleted" record
+   It don't move other records */
 int delete_record_from_phonebook_by_index(phonebook* phone_book, \
                                           int delete_index) {
     phone_book->abonents[delete_index].name[0] = 0;
     phone_book->abonents[delete_index].surname[0] = 0;
     phone_book->abonents[delete_index].phone[0] = 0;
     return 0;
+}
+
+/* It really will move other records (if any are)
+to fill the place of "deleted" record. It will resize 
+allocated memory to actual count of the records. */
+int move_other_records_and_change_memory_size(phonebook* phone_book, \
+                                              int to_where_move_index) {
+    if(to_where_move_index != phone_book->size - 1) {
+        /* Move records */
+        printf("to_where_move_index: %d", to_where_move_index);
+        memmove(&phone_book->abonents[to_where_move_index], \
+                &phone_book->abonents[to_where_move_index + 1],\
+                sizeof(abonent_record) * \
+                    (phone_book->size - 1 - to_where_move_index));
+    }
+
+    phone_book->size--;
+    /* Change size of the alllocated memory */
+    if(0 == phone_book->size) {
+        free(phone_book->abonents);
+        phone_book->abonents = NULL;
+    } else {
+        void* new_ptr = realloc(phone_book->abonents, \
+                                sizeof(abonent_record) * phone_book->size);
+        if(NULL == new_ptr) {
+            perror("Out of memory!\n");
+            free(phone_book->abonents);
+            exit(EXIT_FAILURE);
+            /*  because of exit() this 'return' will not be done */
+            return -1;
+        }
+        phone_book->abonents = (abonent_record*)new_ptr;
+    }
+    return 0;    
 }
 
 /* Search for abonent in phonebook.

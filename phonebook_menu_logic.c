@@ -56,7 +56,14 @@ int main_menu(phonebook* phone_book) {
                     del_menu(phone_book, view_index);
                     user_choice = get_user_choice();
                     if(user_choice == 2) {
+                        /* It only set zeroes on the place of "deleted" record
+                           It don't move other records */
                         delete_record_from_phonebook_by_index(phone_book, \
+                                                                   view_index);
+                        /* It really will move other records (if any are)
+                        to fill the place of "deleted" record. It will resize 
+                        allocated memory to actual count of the records. */
+                        move_other_records_and_change_memory_size(phone_book, \
                                                                    view_index);
                     }
                 /* 1 - continue viewing, 2 delete and continue viewing */    
@@ -158,7 +165,7 @@ int get_data_for_search(abonent_record* to_search, int* and_search_flag) {
     clear_screen();
     show_invoice_geting_data_for_search();
     get_data_for_search_dialog(to_search, and_search_flag);
-    return 0;    
+    return 0;
 }
 
 int get_data_for_search_dialog(abonent_record* to_search, int* and_mode) {
